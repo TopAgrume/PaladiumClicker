@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/PaladiumClicker/static/css/main.6d0186ef.css",
-    "main.js": "/PaladiumClicker/static/js/main.3b613367.js",
-    "static/js/453.10a92ef9.chunk.js": "/PaladiumClicker/static/js/453.10a92ef9.chunk.js",
+    "main.css": "/PaladiumClicker/static/css/main.39aa8ce2.css",
+    "main.js": "/PaladiumClicker/static/js/main.d91f1980.js",
+    "static/js/453.1aa08966.chunk.js": "/PaladiumClicker/static/js/453.1aa08966.chunk.js",
     "index.html": "/PaladiumClicker/index.html",
-    "main.6d0186ef.css.map": "/PaladiumClicker/static/css/main.6d0186ef.css.map",
-    "main.3b613367.js.map": "/PaladiumClicker/static/js/main.3b613367.js.map",
-    "453.10a92ef9.chunk.js.map": "/PaladiumClicker/static/js/453.10a92ef9.chunk.js.map"
+    "main.39aa8ce2.css.map": "/PaladiumClicker/static/css/main.39aa8ce2.css.map",
+    "main.d91f1980.js.map": "/PaladiumClicker/static/js/main.d91f1980.js.map",
+    "453.1aa08966.chunk.js.map": "/PaladiumClicker/static/js/453.1aa08966.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.6d0186ef.css",
-    "static/js/main.3b613367.js"
+    "static/css/main.39aa8ce2.css",
+    "static/js/main.d91f1980.js"
   ]
 }
