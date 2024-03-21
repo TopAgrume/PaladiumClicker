@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/PaladiumClicker/static/css/main.85b41259.css",
-    "main.js": "/PaladiumClicker/static/js/main.8cb0c941.js",
+    "main.js": "/PaladiumClicker/static/js/main.0092ba73.js",
     "static/js/453.1aa08966.chunk.js": "/PaladiumClicker/static/js/453.1aa08966.chunk.js",
     "index.html": "/PaladiumClicker/index.html",
     "main.85b41259.css.map": "/PaladiumClicker/static/css/main.85b41259.css.map",
-    "main.8cb0c941.js.map": "/PaladiumClicker/static/js/main.8cb0c941.js.map",
+    "main.0092ba73.js.map": "/PaladiumClicker/static/js/main.0092ba73.js.map",
     "453.1aa08966.chunk.js.map": "/PaladiumClicker/static/js/453.1aa08966.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.85b41259.css",
-    "static/js/main.8cb0c941.js"
+    "static/js/main.0092ba73.js"
   ]
 }
