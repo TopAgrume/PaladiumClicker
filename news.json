@@ -1,5 +1,11 @@
 [
   {
+    "date": "02-04-2024 - 00h41",
+    "events": [
+      "Ajout d'un graphique pour le classement du clicker"
+    ]
+  },
+  {
     "date": "02-04-2024 - 20h43",
     "events": [
       "Ajout du bâtiment 'clicker.building.Great_Ancients_Pantheon'",
@@ -9,7 +15,7 @@
     ]
   },
   {
-  "date": "02-04-2024 00h15",
+  "date": "02-04-2024 - 00h15",
   "events": [
     "Ajout d'un système de cache permettant de ne pas devoir reconfigurer le système à chaque recharge de la page",
     "Ajout du building 'Altantis' dans la liste des buildings",
