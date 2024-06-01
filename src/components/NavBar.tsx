@@ -7,6 +7,7 @@ import {FaBars} from "react-icons/fa";
 import {NavLink} from "react-router-dom";
 import {usePlayerInfoStore} from "@/stores/use-player-info-store.ts";
 import Setting from "@/components/shared/Setting.tsx";
+import {safeJoin} from "@/lib/api.ts";
 
 const links: Array<{ path: string, label: string }> = [
   {path: "/profil", label: "Profil"},
@@ -24,7 +25,7 @@ const Navbar = () => {
         <MobileNav/>
         <div className="hidden lg:flex gap-4">
           <img
-              src={import.meta.env.BASE_URL + "/favicon.ico"}
+              src={safeJoin(import.meta.env.BASE_URL, "/favicon.ico")}
               alt="Logo"
               className="h-12 w-12 hover:scale-110 duration-300 cursor-pointer"
               onClick={() => {
@@ -67,7 +68,7 @@ const MobileNav = () => {
           <SheetHeader className="pb-6">
             <div className="flex items-center gap-2">
               <img
-                  src={import.meta.env.BASE_URL + "/favicon.ico"}
+                  src={safeJoin(import.meta.env.BASE_URL, "/favicon.ico")}
                   alt="Logo"
                   className="h-12 w-12"
               />

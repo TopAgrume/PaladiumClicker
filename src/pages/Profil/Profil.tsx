@@ -15,6 +15,7 @@ import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 import {formatPrice, levensteinDistance} from "@/lib/misc.ts";
 import useFactionLeaderboard from "@/hooks/use-leaderboard-faction.ts";
 import SmallCardInfo from "@/components/shared/SmallCardInfo.tsx";
+import {safeJoin} from "@/lib/api.ts";
 
 
 export function GetAllFileNameInFolder() {
@@ -2721,7 +2722,6 @@ const ProfilInfo = () => {
           </CardContent>
         </Card>
         <Card className="col-start-1 col-span-2 md:col-start-2 md:col-span-1">
-
           <SmallCardInfo title="Argent actuel" value={`${formatPrice(Math.round(playerInfo["money"]))} $`}
                          img="dollar.png"/>
         </Card>
@@ -2734,6 +2734,7 @@ const ProfilInfo = () => {
         <Card className="col-start-1 col-span-2 md:col-start-2 md:col-span-1">
           <SmallCardInfo title="Première connexion" value={convertEpochToDateUTC2(playerInfo["firstJoin"])}
                          img="clock.gif"/>
+
         </Card>
 
         <Card
@@ -2854,24 +2855,24 @@ const AhItem = ({item}: AhItemsProps) => {
       <Card>
         <CardContent className="pt-6 space-y-2">
           <div className="flex flex-col items-center justify-center gap-2">
-            <img src={`${import.meta.env.BASE_URL}/AH_img/${closestItemName}.png`} alt="Icône"
+            <img src={safeJoin(import.meta.env.BASE_URL, `/AH_img/${closestItemName}.png`)} alt="Icône"
                  className="object-cover h-12 w-auto pixelated"/>
             <span
                 className="text-primary text-sm">{quantity}x {renamed ? `${displayName} renommé en ${name}` : `${name}`}</span>
           </div>
           <div className="space-y-2">
             <div className="text-sm">
-              <img src={`${import.meta.env.BASE_URL}/dollar.png`} alt="Icône"
+              <img src={safeJoin(import.meta.env.BASE_URL, "dollar.png")} alt="Icône"
                    className="object-cover h-10 w-10 inline-block pixelated mr-2"/>
               Prix: {formatPrice(price)} $
             </div>
             <div className="text-sm">
-              <img src={`${import.meta.env.BASE_URL}/pbs.png`} alt="Icône"
+              <img src={safeJoin(import.meta.env.BASE_URL, "pbs.png")} alt="Icône"
                    className="object-cover h-10 w-10 pixelated inline-block mr-2"/>
               Prix en pbs: {formatPrice(pricePb)}
             </div>
             <div className="text-sm">
-              <img src={`${import.meta.env.BASE_URL}/clock.gif`} alt="Icône"
+              <img src={safeJoin(import.meta.env.BASE_URL, "clock.gif")} alt="Icône"
                    className="object-cover h-10 w-10 pixelated inline-block mr-2"/>
               Expire le : {expireAt}
             </div>
@@ -2905,7 +2906,7 @@ const FactionInfo = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card className="md:row-span-2">
           <CardContent className="h-full pt-6 flex gap-4">
-            <img src={`${import.meta.env.BASE_URL}/BookAndQuill.webp`} alt="BookAndQuill.png"
+            <img src={safeJoin(import.meta.env.BASE_URL, "BookAndQuill.webp")} alt="BookAndQuill.png"
                  className="h-12 w-12"/>
             <div className="flex flex-col gap-2">
               <span className="font-semibold">{name}</span>
@@ -2969,7 +2970,7 @@ const FactionInfo = () => {
                           Rôle: {player.group}
                         </div>
                         <div className="text-sm">
-                          <img src={`${import.meta.env.BASE_URL}/clock.gif`} alt="Icône"
+                          <img src={safeJoin(import.meta.env.BASE_URL, "clock.gif")} alt="Icône"
                                className="object-cover h-4 w-4 inline-block pixelated mr-2"/>
                           Rejoint le: {convertEpochToDateUTC2(player.joinedAt)}
                         </div>

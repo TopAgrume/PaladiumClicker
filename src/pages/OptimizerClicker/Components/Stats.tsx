@@ -11,6 +11,7 @@ import {FaBed, FaInfoCircle, FaMedal, FaTachometerAlt} from "react-icons/fa";
 import {computeBestBuildingUgrade, findBestUpgrade} from "./RPS";
 import {useRpsStore} from "@/stores/use-rps-store";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
+import {safeJoin} from "@/lib/api.ts";
 
 const PROCHAIN_ACHAT_COUNT = 20;
 
@@ -80,7 +81,7 @@ const Stats = () => {
                     <GradientText className="font-bold">
                       ~ {formatPrice(Math.round(coinsDormants))}
                     </GradientText>
-                    <img src={import.meta.env.BASE_URL + "/coin.png"} className="h-6 w-6" alt="Coin"/>
+                    <img src={safeJoin(import.meta.env.BASE_URL, "/coin.png")} className="h-6 w-6" alt="Coin"/>
                   </div>
                 </div>
               </CardContent>
@@ -105,7 +106,7 @@ const Stats = () => {
                     <GradientText className="font-bold">
                       {(formatPrice(Math.round(playerInfo["production"])))}
                     </GradientText>
-                    <img src={import.meta.env.BASE_URL + "/coin.png"} className="h-6 w-6" alt="Coin"/>
+                    <img src={safeJoin(import.meta.env.BASE_URL, "/coin.png")} className="h-6 w-6" alt="Coin"/>
                   </div>
                 </div>
               </CardContent>

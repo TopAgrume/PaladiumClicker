@@ -7,11 +7,13 @@ import {useRpsStore} from "@/stores/use-rps-store";
 import type {Building as TBuilding, PlayerInfo} from "@/types";
 import {ChangeEvent, useEffect} from "react";
 import {FaBolt, FaPercentage} from "react-icons/fa";
+import {safeJoin} from "@/lib/api.ts";
+
 
 const BuildingList = () => {
 
-  const { data: playerInfo } = usePlayerInfoStore();
-  const { setRPS } = useRpsStore();
+  const {data: playerInfo} = usePlayerInfoStore();
+  const {setRPS} = useRpsStore();
 
   function getImgPath(index: number, price: number) {
     if (price === -1)
@@ -25,20 +27,20 @@ const BuildingList = () => {
   }, [playerInfo, setRPS]);
 
   return (
-    <ScrollArea>
-      <div className="flex gap-4 pb-3">
-        {playerInfo?.["building"] &&
-          playerInfo["building"].map((building, index) => (
-            <Building
-              key={index}
-              building={building}
-              imgPath={import.meta.env.BASE_URL + getImgPath(index, building.price ?? 0)}
-              index={index}
-            />
-          ))}
-      </div>
-      <ScrollBar orientation="horizontal" />
-    </ScrollArea>
+      <ScrollArea>
+        <div className="flex gap-4 pb-3">
+          {playerInfo?.["building"] &&
+              playerInfo["building"].map((building, index) => (
+                  <Building
+                      key={index}
+                      building={building}
+                      imgPath={safeJoin(import.meta.env.BASE_URL, getImgPath(index, building.price ?? 0))}
+                      index={index}
+                  />
+              ))}
+        </div>
+        <ScrollBar orientation="horizontal"/>
+      </ScrollArea>
   );
 }
 
@@ -48,8 +50,8 @@ type BuildingProps = {
   index: number;
 }
 
-const Building = ({ building, imgPath, index }: BuildingProps) => {
-  const { data: playerInfo, setBuildingOwn } = usePlayerInfoStore();
+const Building = ({building, imgPath, index}: BuildingProps) => {
+  const {data: playerInfo, setBuildingOwn} = usePlayerInfoStore();
 
   function onChangeLevel(event: ChangeEvent<HTMLInputElement>) {
     let value = Number(event.target.value);
@@ -61,33 +63,36 @@ const Building = ({ building, imgPath, index }: BuildingProps) => {
   }
 
   return (
-    <Card>
-      <CardContent className="pt-6 space-y-2">
-        <div className="flex flex-col items-center justify-center gap-2">
-          <img src={imgPath} alt="Icône" className="object-cover h-12 w-auto" />
-          <span className="text-primary text-sm">{building.name}</span>
-          <div className="text-primary font-bold text-center">{formatPrice(computePrice(Number(building.price), Number(building.own)))} $</div>
-        </div>
-        <div className="space-y-2">
-          <div className="text-sm">
-            <FaPercentage className="h-4 w-4 mr-2 inline-block" />
-            Level: {building.own}
+      <Card>
+        <CardContent className="pt-6 space-y-2">
+          <div className="flex flex-col items-center justify-center gap-2">
+            <img src={imgPath} alt="Icône" className="object-cover h-12 w-auto"/>
+            <span className="text-primary text-sm">{building.name}</span>
+            <div
+                className="text-primary font-bold text-center">{formatPrice(computePrice(Number(building.price), Number(building.own)))} $
+            </div>
           </div>
-          <div className="text-sm">
-            <FaBolt className="h-4 w-4 mr-2 inline-block" />
-            RPS: {formatPrice(scaleCurrentProduction(playerInfo!, index, Number(building.own)))}
+          <div className="space-y-2">
+            <div className="text-sm">
+              <FaPercentage className="h-4 w-4 mr-2 inline-block"/>
+              Level: {building.own}
+            </div>
+            <div className="text-sm">
+              <FaBolt className="h-4 w-4 mr-2 inline-block"/>
+              RPS: {formatPrice(scaleCurrentProduction(playerInfo!, index, Number(building.own)))}
+            </div>
+            <Input className="w-auto" type="number" min="0" step="1" max="99" value={Number(building.own)}
+                   onChange={onChangeLevel}/>
           </div>
-          <Input className="w-auto" type="number" min="0" step="1" max="99" value={Number(building.own)} onChange={onChangeLevel} />
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
   );
 }
 
 function getPourcentageBonus(playerInfo: PlayerInfo, buildingIndex: number) {
   function getBonusFromTerrain() {
     const terrainUpgrades = playerInfo.terrain_upgrade
-      .filter((terrain) => terrain.own && terrain.active_list_index.includes(buildingIndex));
+        .filter((terrain) => terrain.own && terrain.active_list_index.includes(buildingIndex));
     const targetedBuilding = playerInfo.building[buildingIndex];
     let terrainPourcentage = 0;
     if (terrainUpgrades.length > 1)
@@ -111,19 +116,19 @@ function getPourcentageBonus(playerInfo: PlayerInfo, buildingIndex: number) {
 
   function getBonusFromGlobal() {
     return playerInfo.global_upgrade
-      .filter((global) => global.own).length * 0.10;
+        .filter((global) => global.own).length * 0.10;
   }
 
   function getBonusFromCategory() {
     const categoryUpgrades = playerInfo.category_upgrade
-      .filter((category) => category.own && category.active_list_index.includes(buildingIndex))
+        .filter((category) => category.own && category.active_list_index.includes(buildingIndex))
     const categoryPourcentage = categoryUpgrades.reduce((total, category) => total + category.pourcentage / 100, 0);
     return categoryPourcentage;
   }
 
   function getBonusFromMany() {
     const manyUpgrades = playerInfo.many_upgrade
-      .filter((many) => many.own && many.active_index === buildingIndex);
+        .filter((many) => many.own && many.active_index === buildingIndex);
     const targetedBuilding = playerInfo.building[buildingIndex];
     if (manyUpgrades.length > 1)
       alert(`Error in getBonusFromMany function : more than one bonus from many for ${targetedBuilding.name}`);
@@ -134,7 +139,7 @@ function getPourcentageBonus(playerInfo: PlayerInfo, buildingIndex: number) {
 
   function getBonusFromBuild() {
     const buildingUpgrades = playerInfo.building_upgrade
-      .filter((building) => building.own && building.active_index === buildingIndex);
+        .filter((building) => building.own && building.active_index === buildingIndex);
     const targetedBuilding = playerInfo.building[buildingIndex];
     if (buildingUpgrades.length > 2)
       alert(`Error in getBonusFromBuild function : more than one/two bonus from building for ${targetedBuilding.name}`)
@@ -144,7 +149,7 @@ function getPourcentageBonus(playerInfo: PlayerInfo, buildingIndex: number) {
 
   function getBonusFromPosterior() {
     const posteriorUpgrades = playerInfo.posterior_upgrade
-      .filter((posterior) => posterior.own && posterior.active_index === buildingIndex);
+        .filter((posterior) => posterior.own && posterior.active_index === buildingIndex);
     const targetedBuilding = playerInfo.building[buildingIndex];
     if (posteriorUpgrades.length > 1)
       alert(`Error in getBonusFromPosterior function : more than one bonus from posterior for ${targetedBuilding.name}`)
@@ -194,10 +199,10 @@ function convertToFloat(str: string | number) {
 export function computeRPS(playerInfo: PlayerInfo) {
   let rps = 0.5;
   playerInfo.building.forEach((building, index) => {
-    if (building.own !== 0) {
-      rps += scaleCurrentProduction(playerInfo, index, Number(building.own));
-    }
-  }
+        if (building.own !== 0) {
+          rps += scaleCurrentProduction(playerInfo, index, Number(building.own));
+        }
+      }
   )
   return rps;
 }

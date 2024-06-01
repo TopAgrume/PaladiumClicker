@@ -12,6 +12,7 @@ import {Button} from "@/components/ui/button.tsx";
 import {Input} from "@/components/ui/input.tsx";
 import {cn} from "@/lib/utils.ts";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover.tsx";
+import {safeJoin} from "@/lib/api.ts";
 
 
 const CalculatorPage = () => {
@@ -108,7 +109,7 @@ const CalculatorPage = () => {
               <div className="grid-cols-2 grid sm:grid-cols-4">
                 {["mineur", "farmer", "hunter", "alchimiste"].map((e, index) => {
                   return (
-                      <img key={index} src={`${import.meta.env.BASE_URL}/JobsIcon/${e}.webp`} alt={e}
+                      <img key={index} src={safeJoin(import.meta.env.BASE_URL, `/JobsIcon/${e}.webp`)} alt={e}
                            className={cn("object-cover h-36 w-auto pixelated hover:scale-105 duration-300 cursor-pointer",
                                metierToReach[getIndexMetierSelected()]["name"] !== e ? "grayscale" : "")}
                            onClick={() => {
@@ -305,7 +306,7 @@ const HowToXp = ({
               constants.how_to_xp[metierName].map((e, index) => {
                 return (
                     <div key={index} className="flex flex-row items-center gap-4">
-                      <img src={`${import.meta.env.BASE_URL}/AH_img/${e["imgPath"]}`} alt={e.imgPath}
+                      <img src={safeJoin(import.meta.env.BASE_URL, `/AH_img/${e["imgPath"]}`)} alt={e.imgPath}
                            className="object-cover h-16 w-auto pixelated"/>
                       <div className="flex flex-col">
                         <span className="font-semibold">

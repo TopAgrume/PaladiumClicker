@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <AboutPage/>,
   },
 ], {
-  basename: '/PaladiumClicker',
+  basename: '/',
 });
 
 function App() {

@@ -1,4 +1,6 @@
 import type {AnyCondition, PlayerInfo} from "@/types";
+import {safeJoin} from "@/lib/api.ts";
+
 
 export function getTotalSpend(playerInfo: PlayerInfo) {
   let total = 0;
@@ -20,8 +22,8 @@ export function getTotalSpend(playerInfo: PlayerInfo) {
 
       for (const element of target) {
         if (
-          ("price" in element) &&
-          (element.own === true || (typeof element.own === "number" && element.own >= 1))
+            ("price" in element) &&
+            (element.own === true || (typeof element.own === "number" && element.own >= 1))
         ) {
           if (key === "building") {
             for (let i = 0; i < (element.own as number); i++)
@@ -40,7 +42,7 @@ function getCoinsCondition(conditions: AnyCondition | undefined) {
     return 0;
 
   const r = conditions
-    .find(c => typeof c !== 'undefined' && "coins" in c) as { coins: number } | undefined;
+      .find(c => typeof c !== 'undefined' && "coins" in c) as { coins: number } | undefined;
   return r ? r.coins : -1;
 }
 
@@ -77,15 +79,15 @@ export function checkCondition(playerInfo: PlayerInfo, conditions: AnyCondition)
   const buildingCount = buildingIndex === -1 ? -1 : playerInfo["building"][buildingIndex]["own"];
 
   const unlockable = totalCoins >= coinsCondition &&
-    daySinceStart >= dayCondition &&
-    (buildingIndex === -1 ? true : Number(playerInfo.building[buildingIndex].own) >= buildingNeed); // TODO change day
+      daySinceStart >= dayCondition &&
+      (buildingIndex === -1 ? true : Number(playerInfo.building[buildingIndex].own) >= buildingNeed); // TODO change day
 
   return [unlockable, coinsCondition, totalCoins, dayCondition, daySinceStart, buildingIndex, buildingNeed, buildingCount];
 }
 
 export function formatPrice(price: number | undefined) {
-    if (price === undefined)
-        return "Error";
+  if (price === undefined)
+    return "Error";
   const numberFormatter = new Intl.NumberFormat("fr-FR");
   return numberFormatter.format(price);
 }
@@ -97,22 +99,22 @@ export function computePrice(priceLevel0: number, level: number) {
 export function getPathImg(bestListName: string, bestUpgradeIndex: number) {
   switch (bestListName) {
     case "building":
-      return import.meta.env.BASE_URL + "/BuildingIcon/" + bestUpgradeIndex + ".png";
+      return safeJoin(import.meta.env.BASE_URL, "/BuildingIcon/" + bestUpgradeIndex + ".png");
     case "building_upgrade":
-      return import.meta.env.BASE_URL + "/BuildingUpgradeIcon/" + (bestUpgradeIndex < 16 ? "0" : "1") + ".png";
+      return safeJoin(import.meta.env.BASE_URL, "/BuildingUpgradeIcon/" + (bestUpgradeIndex < 16 ? "0" : "1") + ".png");
     case "category_upgrade":
-      return import.meta.env.BASE_URL + "/CategoryIcon/" + bestUpgradeIndex + ".png";
+      return safeJoin(import.meta.env.BASE_URL, "/CategoryIcon/" + bestUpgradeIndex + ".png");
     case "global_upgrade":
-      return import.meta.env.BASE_URL + "/GlobalIcon/" + bestUpgradeIndex + ".png";
+      return safeJoin(import.meta.env.BASE_URL, "/GlobalIcon/" + bestUpgradeIndex + ".png");
     case "many_upgrade":
-      return import.meta.env.BASE_URL + "/ManyIcon/0.png";
+      return safeJoin(import.meta.env.BASE_URL, "/ManyIcon/0.png");
     case "terrain_upgrade":
-      return import.meta.env.BASE_URL + "/TerrainIcon/" + bestUpgradeIndex + ".png";
+      return safeJoin(import.meta.env.BASE_URL, "/TerrainIcon/" + bestUpgradeIndex + ".png");
     case "posterior_upgrade":
-      return import.meta.env.BASE_URL + "/PosteriorIcon/0.png";
+      return safeJoin(import.meta.env.BASE_URL, "/PosteriorIcon/0.png");
     default:
       alert("Error in bestListName");
-      return import.meta.env.BASE_URL + "/BuildingUpgradeIcon/0.png";
+      return safeJoin(import.meta.env.BASE_URL, "/BuildingUpgradeIcon/0.png");
 
   }
 }
@@ -133,7 +135,7 @@ export function parseCsv(csv: string) {
   return result;
 }
 
-export function levensteinDistance(a :string, b : string) {
+export function levensteinDistance(a: string, b: string) {
   const distance = [];
   for (let i = 0; i <= a.length; i++) {
     distance[i] = [i];

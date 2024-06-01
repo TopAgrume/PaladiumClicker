@@ -9,6 +9,7 @@ import {cn} from "@/lib/utils";
 import {usePlayerInfoStore} from "@/stores/use-player-info-store";
 import type {PlayerInfo, UpgradeKey} from "@/types";
 import {FaInfoCircle} from "react-icons/fa";
+import {safeJoin} from "@/lib/api.ts";
 
 type UpgradeListProps = {
   upgradeType: UpgradeKey;
@@ -41,7 +42,7 @@ const UpgradeList = ({ upgradeType }: UpgradeListProps) => {
               key={`${upgrade.name}-${index}`}
               upgradeType={upgradeType}
               upgrade={upgrade}
-              imgPath={import.meta.env.BASE_URL + getImgPath(index, upgrade.name)}
+              imgPath={safeJoin(import.meta.env.BASE_URL,  getImgPath(index, upgrade.name))}
             />
           ))}
       </div>
