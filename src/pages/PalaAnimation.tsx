@@ -14,7 +14,6 @@ const PalaAnimationBody = () => {
   const [questionsList, setQuestionsList] = useState({});
   const [reroll, setReroll] = useState(false);
 
-
   function removeLastChar() {
     const user_response_length = document.getElementById("user-answer")?.childElementCount;
     if (user_response_length === 0) {
