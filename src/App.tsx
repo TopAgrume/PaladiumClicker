@@ -12,30 +12,28 @@ import SettingProvider from "@/components/shared/SettingsProvider.tsx";
 import AhTracker from "@/pages/AhTracker/AhTracker.tsx";
 
 const router = createBrowserRouter([
-
   {
     path: '/',
-    element: <Navigate to="/optimizer-clicker" />,
+    element: <Navigate to="/optimizer-clicker"/>,
   },
   {
     path: '/ah',
     element: <AhTracker/>,
   },
   {
-    path: '/xp-calculator',
+    path: '/xp-calculator/:pseudo?',
     element: <CalculatorPage/>,
   },
-  // Quand le site ne sera plus hébergé sur github, on pourra utiliser cette route
   {
     path: '/optimizer-clicker/:pseudo?',
-    element: <OptimizerClickerPage />,
+    element: <OptimizerClickerPage/>,
   },
   {
     path: '/profil/:pseudo?',
     element: <ProfilPage/>,
   },
   {
-    path: '/pala-animation',
+    path: '/pala-animation/:pseudo?',
     element: <PalaAnimation/>,
   },
   {

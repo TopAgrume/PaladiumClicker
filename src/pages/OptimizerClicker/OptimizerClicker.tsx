@@ -23,6 +23,7 @@ import {AxiosError} from "axios";
 import {useParams} from "react-router-dom";
 import useLoadPlayerInfoMutation from "@/hooks/use-load-player-info-mutation.ts";
 
+
 const OptimizerClickerPage = () => {
   const {pseudo} = useParams();
   const {data: playerInfo} = usePlayerInfoStore();

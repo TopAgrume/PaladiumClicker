@@ -8,6 +8,7 @@ import {NavLink} from "react-router-dom";
 import {usePlayerInfoStore} from "@/stores/use-player-info-store.ts";
 import Setting from "@/components/shared/Setting.tsx";
 import {safeJoin} from "@/lib/api.ts";
+import ShareButton from "@/components/shared/ShareButton.tsx";
 
 const links: Array<{ path: string, label: string }> = [
   {path: "/profil", label: "Profil"},
@@ -46,6 +47,7 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex gap-2">
+          <ShareButton/>
           <Setting/>
           <ToggleTheme/>
           <ImportProfil showResetButton={false} withBackground/>

@@ -2639,9 +2639,9 @@ export function GetAllFileNameInFolder() {
 }
 
 const ProfilPage = () => {
+    const {data: playerInfo} = usePlayerInfoStore();
     const {pseudo} = useParams();
     const {mutate: loadPlayerInfo, isPending} = useLoadPlayerInfoMutation();
-    const {data: playerInfo} = usePlayerInfoStore();
 
     useEffect(() => {
         if (pseudo !== undefined && !isPending) {
