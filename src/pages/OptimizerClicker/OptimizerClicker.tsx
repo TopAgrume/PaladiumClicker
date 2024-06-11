@@ -8,8 +8,7 @@ import Layout from "@/components/shared/Layout";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import BuildingList from "@/pages/OptimizerClicker/Components/BuildingList";
 import FallingClickImage from "@/pages/OptimizerClicker/Components/FallingClickImage";
-import {usePlayerInfoStore} from "@/stores/use-player-info-store";
-import {UpgradeKey} from "@/types";
+import {PlayerInfo, UpgradeKey} from "@/types";
 import {Fragment, useEffect, useState} from "react";
 import {FaHeart} from "react-icons/fa";
 import ClickList from "./Components/ClickList";
@@ -22,11 +21,30 @@ import {toast} from "sonner";
 import {AxiosError} from "axios";
 import {useParams} from "react-router-dom";
 import useLoadPlayerInfoMutation from "@/hooks/use-load-player-info-mutation.ts";
+import {usePlayerInfoSharedStore, usePlayerInfoStore} from "@/stores/use-player-info-store.ts";
 
 
-const OptimizerClickerPage = () => {
-  const {pseudo} = useParams();
+type OptimizerClickerPageProps = {
+  sharedProfil: boolean
+}
+
+const OptimizerClickerPage = ({sharedProfil} : OptimizerClickerPageProps) => {
   const {data: playerInfo} = usePlayerInfoStore();
+  const {data: playerInfoShared} = usePlayerInfoSharedStore();
+
+  if(sharedProfil)
+    return <OptimizerClickerContent playerInfo={playerInfoShared} sharedProfile={sharedProfil}/>;
+  else
+    return <OptimizerClickerContent playerInfo={playerInfo} sharedProfile={sharedProfil}/>;
+}
+
+type OptimizerClickerContentProps = {
+  playerInfo: PlayerInfo | null
+  sharedProfile: boolean
+}
+
+const OptimizerClickerContent = ({playerInfo, sharedProfile} : OptimizerClickerContentProps) => {
+  const {pseudo} = useParams();
   const {mutate: loadPlayerInfo, isPending} = useLoadPlayerInfoMutation();
   const [isModalNewsOpen, setIsModalNewsOpen] = useState(playerInfo === null);
 
@@ -37,6 +55,8 @@ const OptimizerClickerPage = () => {
   }, [playerInfo]);
 
   useEffect(() => {
+    if(!sharedProfile)
+      return;
     if (pseudo !== undefined && !isPending) {
       loadPlayerInfo(pseudo, {
         onSuccess: () => {
@@ -75,11 +95,13 @@ const OptimizerClickerPage = () => {
     );
   }
 
+
   return (
       <>
         <Layout>
           <div className="flex flex-col gap-4">
-            <Card>
+
+            {sharedProfile ? "" : <Card>
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle>
                   Bienvenue sur l'optimiseur du{" "}
@@ -102,7 +124,7 @@ const OptimizerClickerPage = () => {
                   profil</CardDescription>
                 <ImportProfil showResetButton/>
               </CardFooter>
-            </Card>
+            </Card>}
             <RPS/>
             <HeadingSection>Statistiques</HeadingSection>
             <Stats/>
