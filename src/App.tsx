@@ -10,7 +10,6 @@ import ProfilPage from "@/pages/Profil/Profil.tsx";
 import CalculatorPage from "@/pages/Calculator/CalculatorPage.tsx";
 import SettingProvider from "@/components/shared/SettingsProvider.tsx";
 import AhTracker from "@/pages/AhTracker/AhTracker.tsx";
-import SharedProfil from "@/pages/SharedProfil/SharedProfil.tsx";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/optimizer-clicker/:pseudo?',
-    element: <OptimizerClickerPage sharedProfil={false}/>,
+    element: <OptimizerClickerPage/>,
   },
   {
     path: '/profil/:pseudo?',
@@ -41,10 +40,6 @@ const router = createBrowserRouter([
     path: '/about',
     element: <AboutPage/>,
   },
-  {
-    path: '/sharedProfil',
-    element: <SharedProfil/>,
-  }
 ], {
   basename: '/',
 });

@@ -17,7 +17,6 @@ const links: Array<{ path: string, label: string }> = [
   {path: "/", label: "PalaClicker Optimizer"},
   {path: "/pala-animation", label: "PalaAnimation Trainer"},
   {path: "/about", label: "A propos"},
-  {path: "/sharedProfil", label: "Profil partagé"},
 ];
 
 const Navbar = () => {
