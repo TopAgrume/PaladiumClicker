@@ -16,6 +16,7 @@ const links: Array<{ path: string, label: string }> = [
   {path: "/xp-calculator", label: "Calculateur d'xp"},
   {path: "/", label: "PalaClicker Optimizer"},
   {path: "/pala-animation", label: "PalaAnimation Trainer"},
+  {path: "/palatime", label: "Palatime"},
   {path: "/about", label: "A propos"},
 ];
 
